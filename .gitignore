@@ -1,0 +1,4 @@
+*.dll
+*.nupkg
+tools/**
+!tools/packages.config
