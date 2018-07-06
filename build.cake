@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 var target = Argument<string>("target");
 
 Task("Pack")
@@ -7,6 +9,7 @@ Task("Pack")
             StartProcess(
                 @"C:\msys64\msys2_shell.cmd",
                 @"-c ""pacman -S --needed --noconfirm mingw-w64-i686-libspatialite mingw-w64-x86_64-libspatialite""");
+            Process.GetProcessesByName("mintty").FirstOrDefault()?.WaitForExit();
 
                 var root32 = @"C:\msys64\mingw32\";
                 var target32 = @"src\mod_spatialite\runtimes\win-x86\native";
