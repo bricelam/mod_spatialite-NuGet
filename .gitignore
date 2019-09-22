@@ -1,4 +1,4 @@
-*.dll
-*.nupkg
-tools/**
-!tools/packages.config
+/artifacts/
+/src/libspatialite-4.3.0a/
+bin/
+obj/

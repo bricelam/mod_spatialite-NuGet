@@ -1,0 +1,32 @@
+<Project>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  
+  <Import Project="..\..\version.props" />
+  
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <MinClientVersion>2.12</MinClientVersion>
+    <Description>SQLite extension to support spatial data types and operations.
+When using NuGet 3.x this package requires at least version 3.4.</Description>
+    <Authors>Alessandro Furieri</Authors>
+    <PackageProjectUrl>https://www.gaia-gis.it/fossil/libspatialite/index</PackageProjectUrl>
+    <PackageOutputPath>..\..\artifacts\packages</PackageOutputPath>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSource>false</IncludeSource>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="lib\netstandard2.0\_._" PackagePath="lib\netstandard2.0" />
+    <Content Include="NOTICE.md" PackagePath="" />
+    <Content Include="..\..\artifacts\runtimes\**\*" PackagePath="runtimes" />
+  </ItemGroup>
+  
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  
+  <Target Name="Compile" />
+  
+  <Target Name="CopyFilesToOutputDirectory" />
+  
+</Project>
