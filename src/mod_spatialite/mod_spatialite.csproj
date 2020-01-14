@@ -11,6 +11,9 @@
 When using NuGet 3.x this package requires at least version 3.4.</Description>
     <Authors>Alessandro Furieri</Authors>
     <PackageProjectUrl>https://www.gaia-gis.it/fossil/libspatialite/index</PackageProjectUrl>
+    <SuppressDependenciesWhenPacking>True</SuppressDependenciesWhenPacking>
+    <RepositoryUrl>https://github.com/bricelam/mod_spatialite-NuGet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageOutputPath>..\..\artifacts\packages</PackageOutputPath>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -18,7 +21,6 @@ When using NuGet 3.x this package requires at least version 3.4.</Description>
   </PropertyGroup>
   
   <ItemGroup>
-    <Content Include="lib\netstandard2.0\_._" PackagePath="lib\netstandard2.0" />
     <Content Include="NOTICE.md" PackagePath="" />
     <Content Include="..\..\artifacts\runtimes\**\*" PackagePath="runtimes" />
   </ItemGroup>

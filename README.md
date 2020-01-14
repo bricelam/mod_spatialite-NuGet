@@ -24,5 +24,5 @@ fi
 
 ./configure --disable-proj
 make
-make install
+make install-strip
 ```

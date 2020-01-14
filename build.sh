@@ -12,26 +12,9 @@ if [[ `uname -s` == MINGW* ]]; then
 
     autoreconf
 
-    rid="win-x64"
-    if [ $MSYSTEM = "MINGW32" ]; then
-        rid="win-x86"
-    fi
-
     configureArgs="--host=${MINGW_CHOST} --target=${MINGW_CHOST} --build=${MINGW_CHOST} --prefix=${MINGW_PREFIX}"
-    sharedLibExt=".dll"
 elif [[ `uname -s` == Darwin* ]]; then
     sed -i "" "s/shrext_cmds='\`test \\.\$module = .yes && echo .so \\|\\| echo \\.dylib\`'/shrext_cmds='.dylib'/g" configure
-
-    rid="osx-x64"
-    sharedLibExt=".dylib"
-else
-    rid=$1
-    if [ -z "${rid}"]; then
-        echo "Please specify a RID."
-        exit 1
-    fi
-
-    sharedLibExt=".so"
 fi
 
 mkdir build
@@ -43,22 +26,28 @@ cd build
     --disable-libxml2 \
     --disable-examples
 make
-
-cd ../../..
-
-mkdir artifacts
-cd artifacts
-
-mkdir runtimes
-cd runtimes
-
-mkdir ${rid}
-cd ${rid}
-
-mkdir native
-cd native
+make install-strip
 
 if [[ `uname -s` == MINGW* ]]; then
+    cd ../../..
+
+    mkdir artifacts
+    cd artifacts
+
+    mkdir runtimes
+    cd runtimes
+
+    rid="win-x64"
+    if [ $MSYSTEM = "MINGW32" ]; then
+        rid="win-x86"
+    fi
+
+    mkdir ${rid}
+    cd ${rid}
+
+    mkdir native
+    cd native
+
     if [ $MSYSTEM = "MINGW32" ]; then
         cp /mingw32/bin/libgcc_s_dw2-1.dll .
     else
@@ -70,7 +59,6 @@ if [[ `uname -s` == MINGW* ]]; then
     cp ${MINGW_PREFIX}/bin/libiconv-2.dll .
     cp ${MINGW_PREFIX}/bin/libstdc++-6.dll .
     cp ${MINGW_PREFIX}/bin/libwinpthread-1.dll .
+    cp ${MINGW_PREFIX}/lib/mod_spatialite.dll .
     cp ${MINGW_PREFIX}/bin/zlib1.dll .
 fi
-
-cp ../../../../src/libspatialite-4.3.0a/build/src/.libs/mod_spatialite.dll .
