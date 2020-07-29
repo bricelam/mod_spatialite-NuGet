@@ -11,12 +11,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: numworks/setup-msys2@v1
+      - uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW32
-      - run: msys2do pacman --noconfirm --needed -S base-devel mingw-w64-i686-toolchain mingw-w64-i686-geos
-      - run: msys2do ./build.sh
-      - uses: actions/upload-artifact@v1
+          release: false
+          install: base-devel mingw-w64-i686-toolchain mingw-w64-i686-geos
+      - shell: msys2 {0}
+        run: ./build.sh
+      - uses: actions/upload-artifact@v2
         with:
           name: win-x86
           path: artifacts
@@ -25,15 +27,18 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: numworks/setup-msys2@v1
-      - run: msys2do pacman --noconfirm --needed -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-geos
-      - run: msys2do ./build.sh
-      - uses: actions/download-artifact@v1
+      - uses: msys2/setup-msys2@v2
+        with:
+          release: false
+          install: base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-geos
+      - shell: msys2 {0}
+        run: ./build.sh
+      - uses: actions/download-artifact@v2
         with:
           name: win-x86
           path: artifacts
       - run: ./pack.cmd
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: packages
           path: artifacts/packages
